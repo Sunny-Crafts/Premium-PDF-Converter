@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}Home | Premium PDF Tools{% endblock %}
+
+{% block content %}
+<header class="home-header">
+    <h1 class="glow-text">Master Your <span class="accent">Documents</span></h1>
+    <p class="subtitle">The best <strong>Free Online PDF Converter</strong> to Merge, Compress, and Edit documents.
+        Fast, secure, and beautiful.</p>
+</header>
+
+<div class="tools-grid">
+    <!-- Tool 1: Image to PDF -->
+    <a href="{{ url_for('image_to_pdf') }}" class="tool-card glass-panel">
+        <div class="tool-icon">
+            <i class="fa-solid fa-images"></i>
+        </div>
+        <h3>Image to PDF</h3>
+        <p>Convert JPG/PNG images into a single professional PDF.</p>
+    </a>
+
+    <!-- Tool 2: Merge PDF -->
+    <a href="{{ url_for('merge_pdf') }}" class="tool-card glass-panel">
+        <div class="tool-icon">
+            <i class="fa-solid fa-file-circle-plus"></i>
+        </div>
+        <h3>Merge PDF</h3>
+        <p>Combine multiple PDF files into one organizsed document.</p>
+    </a>
+
+    <!-- Tool 3: Compress PDF -->
+    <a href="{{ url_for('compress_pdf') }}" class="tool-card glass-panel">
+        <div class="tool-icon">
+            <i class="fa-solid fa-compress"></i>
+        </div>
+        <h3>Compress PDF</h3>
+        <p>Reduce file size while maintaining document quality.</p>
+    </a>
+
+    <!-- Tool 4: Word to PDF -->
+    <a href="{{ url_for('word_to_pdf') }}" class="tool-card glass-panel">
+        <div class="tool-icon">
+            <i class="fa-solid fa-file-word"></i>
+        </div>
+        <h3>Word ↔ PDF</h3>
+        <p>Convert Word to PDF and PDF to Word instantly.</p>
+    </a>
+
+    <!-- Tool 5: PDF to Image -->
+    <a href="{{ url_for('pdf_to_jpg') }}" class="tool-card glass-panel">
+        <div class="tool-icon">
+            <i class="fa-solid fa-file-image"></i>
+        </div>
+        <h3>PDF ↔ JPG</h3>
+        <p>Extract images from PDF or convert PDF pages to JPG.</p>
+    </a>
+
+    <!-- Tool 6: Image Tools -->
+    <a href="{{ url_for('image_tools') }}" class="tool-card glass-panel">
+        <div class="tool-icon">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+        </div>
+        <h3>Image Tools</h3>
+        <p>Compress, resize, and optimize your images.</p>
+    </a>
+</div>
+
+<section id="about" class="container" style="margin-top: 6rem; margin-bottom: 4rem;">
+    <div class="glass-panel"
+        style="padding: 3rem; text-align: center; position: relative; overflow: hidden; box-shadow: 0 0 50px rgba(139, 92, 246, 0.4), inset 0 0 20px rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.5);">
+        <!-- Background Glow -->
+        <div
+            style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(139, 92, 246, 0.1), transparent 70%); pointer-events: none;">
+        </div>
+
+        <h2 style="font-size: 2.5rem; margin-bottom: 2rem;"><span class="accent">About</span> <span
+                style="background: linear-gradient(to right, var(--accent-secondary), var(--accent-glow)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Premium
+                Tools</span></h2>
+
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; text-align: left;">
+            <div>
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-primary);">The Ultimate PDF Suite
+                </h3>
+                <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem;">
+                    PremiumPDF was built with a single mission: to provide <strong>professional-grade document
+                        manipulation</strong> without the need for expensive software or complex installations.
+                </p>
+                <p style="color: var(--text-secondary); line-height: 1.7;">
+                    We leverage advanced server-side processing to ensure your files are converted with
+                    <strong>pixel-perfect accuracy</strong>. From merging sensitive contracts to compressing portfolios,
+                    our toolset is designed for speed, security, and simplicity.
+                </p>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <div style="display: flex; align-items: start; gap: 1rem;">
+                    <i class="fa-solid fa-shield-halved"
+                        style="color: var(--success); font-size: 1.2rem; margin-top: 0.2rem;"></i>
+                    <div>
+                        <h4 style="font-weight: 600; margin-bottom: 0.5rem;">Secure & Private</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">Your files are processed securely
+                            and automatically deleted from our servers after conversion. We prioritize your privacy.</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: start; gap: 1rem;">
+                    <i class="fa-solid fa-bolt"
+                        style="color: var(--accent-secondary); font-size: 1.2rem; margin-top: 0.2rem;"></i>
+                    <div>
+                        <h4 style="font-weight: 600; margin-bottom: 0.5rem;">Lightning Fast</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">Powered by high-performance Python
+                            engines, even large files are processed in seconds.</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: start; gap: 1rem;">
+                    <i class="fa-solid fa-wand-magic-sparkles"
+                        style="color: var(--accent-glow); font-size: 1.2rem; margin-top: 0.2rem;"></i>
+                    <div>
+                        <h4 style="font-weight: 600; margin-bottom: 0.5rem;">Premium Quality</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">We maintain the highest fidelity for
+                            images and documents, ensuring no loss of quality during compression or conversion.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+            <p style="font-style: italic; color: var(--text-secondary);">"Simplify your workflow. Master your
+                documents."</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

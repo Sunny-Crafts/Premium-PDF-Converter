@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Login | PremiumPDF{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 400px; margin-top: 5rem;">
+    <div class="glass-panel" style="padding: 2.5rem;">
+        <h2 class="glow-text text-center" style="margin-bottom: 2rem;">Admin <span class="accent">Login</span></h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}" style="color: #ef4444; margin-bottom: 1rem; text-align: center;">{{
+            message }}</div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('admin_login') }}" method="POST">
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary);">Username</label>
+                <input type="text" name="username" class="glass-input"
+                    style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); color: white;"
+                    required>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+                <label style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary);">Password</label>
+                <input type="password" name="password" class="glass-input"
+                    style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); color: white;"
+                    required>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+                <span>Login to Dashboard</span>
+                <div class="btn-glow"></div>
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

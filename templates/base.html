@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PremiumPDF - Convert, Merge & Compress PDF Online{% endblock %}</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="{% block meta_description %}Free online PDF tools to merge, compress, convert, and edit PDFs. precise PDF to Word conversion, fast JPG to PDF, and more. Secure and easy to use.{% endblock %}">
+    <meta name="keywords"
+        content="pdf converter, merge pdf, compress pdf, word to pdf, pdf to jpg, image to pdf, online pdf tools, free pdf converter, premiumpdf">
+    <meta name="author" content="Sunny Yadav">
+    <link rel="canonical" href="{{ request.url }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:title" content="{% block og_title %}PremiumPDF - Master Your Documents{% endblock %}">
+    <meta property="og:description"
+        content="All-in-one suite for PDF and Image manipulation. Fast, secure, and beautiful. No installation required.">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ request.url }}">
+    <meta property="twitter:title" content="PremiumPDF - Master Your Documents">
+    <meta property="twitter:description"
+        content="All-in-one suite for PDF and Image manipulation. Fast, secure, and beautiful.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+        <div class="globe globe-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar glass-panel">
+        <a href="/" class="logo">
+            <i class="fa-solid fa-layer-group accent"></i> Premium<span class="accent">PDF</span>
+        </a>
+        <div class="nav-links">
+            <a href="/" class="nav-item">Home</a>
+
+            <!-- Mega Menu -->
+            <div class="dropdown">
+                <a href="#" class="nav-item dropdown-trigger">Convert PDF <i class="fa-solid fa-chevron-down"></i></a>
+                <div class="dropdown-menu">
+                    <div class="dropdown-cols">
+                        <div class="dropdown-col">
+                            <h4>Convert TO PDF</h4>
+                            <a href="{{ url_for('image_to_pdf') }}"><i class="fa-solid fa-image"></i> JPG to PDF</a>
+                            <a href="{{ url_for('word_to_pdf') }}"><i class="fa-solid fa-file-word"></i> Word to PDF</a>
+                        </div>
+                        <div class="dropdown-col">
+                            <h4>Convert FROM PDF</h4>
+                            <a href="{{ url_for('pdf_to_jpg') }}"><i class="fa-solid fa-file-image"></i> PDF to JPG</a>
+                            <a href="{{ url_for('word_to_pdf') }}#pdf2word"><i class="fa-solid fa-file-word"></i> PDF to
+                                Word</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="{{ url_for('merge_pdf') }}" class="nav-item">Merge PDF</a>
+            <a href="{{ url_for('compress_pdf') }}" class="nav-item">Compress PDF</a>
+            <!-- Image Tools Mega Menu -->
+            <div class="dropdown">
+                <a href="#" class="nav-item dropdown-trigger">Convert Images <i
+                        class="fa-solid fa-chevron-down"></i></a>
+                <div class="dropdown-menu">
+                    <div class="dropdown-cols">
+                        <div class="dropdown-col">
+                            <h4>Image Tools</h4>
+                            <a href="{{ url_for('image_tools') }}#compress"><i class="fa-solid fa-compress"></i>
+                                Compress Image</a>
+                            <a href="{{ url_for('image_tools') }}#resize"><i class="fa-solid fa-expand"></i> Resize
+                                Image</a>
+                        </div>
+                        <div class="dropdown-col">
+                            <h4>Convert Images</h4>
+                            <a href="{{ url_for('image_to_pdf') }}"><i class="fa-solid fa-file-pdf"></i> JPG to PDF</a>
+                            <a href="{{ url_for('pdf_to_jpg') }}"><i class="fa-solid fa-images"></i> PDF to JPG</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="/#about" class="nav-item">About</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2026 PremiumPDF. Created by Sunny Yadav. All rights reserved.</p>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

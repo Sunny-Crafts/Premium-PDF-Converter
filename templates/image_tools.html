@@ -1,0 +1,340 @@
+{% extends "base.html" %}
+
+{% block title %}Image Tools | PremiumPDF{% endblock %}
+
+{% block head %}
+<style>
+    .tabs {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .tab-btn {
+        background: transparent;
+        border: 1px solid var(--glass-border);
+        color: var(--text-secondary);
+        padding: 0.8rem 2rem;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .tab-btn.active {
+        background: rgba(59, 130, 246, 0.2);
+        border-color: var(--accent-color);
+        color: #fff;
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+    }
+
+    .converter-card {
+        display: none;
+    }
+
+    .converter-card.active {
+        display: block;
+        animation: fadeIn 0.4s ease;
+    }
+
+    .slider-container {
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .slider-label {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+    }
+
+    input[type=range] {
+        width: 100%;
+        accent-color: var(--accent-color);
+    }
+
+    .resize-inputs {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .input-group {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .input-group label {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        margin-bottom: 0.3rem;
+    }
+
+    .input-group input {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--glass-border);
+        padding: 0.8rem;
+        border-radius: 8px;
+        color: #fff;
+        outline: none;
+    }
+
+    /* File Size Info Styles */
+    .size-info {
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background: rgba(139, 92, 246, 0.1);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        border-radius: 10px;
+    }
+
+    .size-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+    }
+
+    .size-row:not(:last-child) {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .size-label {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+    }
+
+    .size-value {
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    .size-value.estimated {
+        color: var(--success);
+    }
+
+    .size-value.reduction {
+        color: var(--accent-glow);
+        font-size: 0.85rem;
+    }
+
+    /* Target Size Input Styles */
+    .target-size-container {
+        background: rgba(139, 92, 246, 0.1);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        border-radius: 12px;
+        padding: 1.5rem;
+    }
+
+    .target-size-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .target-label {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    .target-input-group {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .target-input-group input {
+        width: 100px;
+        padding: 0.8rem 1rem;
+        background: rgba(255, 255, 255, 0.08);
+        border: 2px solid rgba(139, 92, 246, 0.5);
+        border-radius: 8px;
+        color: #fff;
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-align: center;
+        outline: none;
+        transition: all 0.3s ease;
+    }
+
+    .target-input-group input:focus {
+        border-color: var(--accent-color);
+        box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+    }
+
+    .unit-label {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+    }
+
+    .size-note {
+        margin-top: 1rem;
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .size-note i {
+        color: var(--accent-secondary);
+    }
+
+    .size-note span {
+        color: var(--accent-glow);
+        font-weight: 600;
+    }
+
+    /* Image Preview Styles */
+    .image-preview-container {
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto 1.5rem auto;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 2px solid rgba(139, 92, 246, 0.4);
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+    }
+
+    .image-preview-container img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<header>
+    <h1 class="glow-text">Image <span class="accent">Tools</span></h1>
+    <p class="subtitle">Optimize and Resize your visuals.</p>
+</header>
+
+<div class="tabs">
+    <button class="tab-btn active" data-tab="compress">Compress Image</button>
+    <button class="tab-btn" data-tab="resize">Increase Image Size</button>
+</div>
+
+<!-- COMPRESS SECTION -->
+<section class="converter-card glass-panel active" id="compress">
+    <div class="drop-zone" id="dropZoneCompress">
+        <div class="icon-container">
+            <i class="fa-solid fa-compress" style="font-size: 3rem;"></i>
+        </div>
+        <h3>Drag & Drop Image to Compress</h3>
+        <p>or <span class="browse-text">browse</span></p>
+        <input type="file" id="fileInputCompress" accept="image/*" hidden>
+    </div>
+
+    <div class="options-area hidden" id="optionsCompress">
+        <!-- Image Preview -->
+        <div class="image-preview-container">
+            <img id="compressImagePreview" src="" alt="Preview">
+        </div>
+
+        <!-- Target Size Input -->
+        <div class="target-size-container" style="margin-top: 1.5rem;">
+            <div class="target-size-row">
+                <label class="target-label">Target Image Size:</label>
+                <div class="target-input-group">
+                    <input type="number" id="compressTargetSize" placeholder="50" min="1">
+                    <span class="unit-label">KB</span>
+                </div>
+            </div>
+            <p class="size-note">
+                <i class="fa-solid fa-circle-info"></i>
+                Original Size: <span id="compressOriginalSize">0 KB</span>
+            </p>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button class="btn btn-primary disabled" id="convertBtnCompress">
+            <span>Compress Image</span>
+            <div class="btn-glow"></div>
+        </button>
+    </div>
+</section>
+
+<!-- RESIZE SECTION -->
+<section class="converter-card glass-panel" id="resize">
+    <div class="drop-zone" id="dropZoneResize">
+        <div class="icon-container">
+            <i class="fa-solid fa-up-right-and-down-left-from-center" style="font-size: 3rem;"></i>
+        </div>
+        <h3>Drag & Drop Image to Increase Size</h3>
+        <p>or <span class="browse-text">browse</span></p>
+        <input type="file" id="fileInputResize" accept="image/*" hidden>
+    </div>
+
+    <div class="options-area hidden" id="optionsResize">
+        <!-- Image Preview -->
+        <div class="image-preview-container">
+            <img id="resizeImagePreview" src="" alt="Preview">
+        </div>
+
+        <div class="resize-inputs">
+            <div class="input-group">
+                <label>Width (px)</label>
+                <input type="number" id="resizeWidth" placeholder="e.g 1920">
+            </div>
+            <div class="input-group">
+                <label>Height (px)</label>
+                <input type="number" id="resizeHeight" placeholder="e.g 1080">
+            </div>
+        </div>
+
+        <!-- Target Size Input -->
+        <div class="target-size-container" style="margin-top: 1.5rem;">
+            <div class="target-size-row">
+                <label class="target-label">Target Image Size:</label>
+                <div class="target-input-group">
+                    <input type="number" id="targetSizeInput" placeholder="50" min="1">
+                    <span class="unit-label">KB</span>
+                </div>
+            </div>
+            <p class="size-note">
+                <i class="fa-solid fa-circle-info"></i>
+                Original Size: <span id="resizeOriginalSize">0 KB</span>
+            </p>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button class="btn btn-primary disabled" id="convertBtnResize">
+            <span>Increase Image Size</span>
+            <div class="btn-glow"></div>
+        </button>
+    </div>
+</section>
+
+<!-- Download Section -->
+<section class="download-screen glass-panel hidden" id="downloadSection">
+    <div class="success-icon">
+        <i class="fa-solid fa-wand-magic-sparkles" style="font-size: 4rem; color: var(--success);"></i>
+    </div>
+    <h2>Processed Successfully!</h2>
+    <p>Your image is ready.</p>
+
+    <div class="actions">
+        <a id="downloadLink" href="#" class="btn btn-primary">
+            Download Image
+        </a>
+        <button class="btn btn-secondary" id="startOverBtn"
+            style="margin-top: 1rem; background: transparent; border: 1px solid var(--text-secondary); color: var(--text-secondary); width: 100%; padding: 1rem; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+            Process Another
+        </button>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='image_tools.js') }}"></script>
+{% endblock %}

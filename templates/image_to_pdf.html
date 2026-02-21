@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Image to PDF | PremiumPDF{% endblock %}
+
+{% block content %}
+<header>
+    <h1 class="glow-text">JPG <span class="accent">to</span> PDF</h1>
+    <p class="subtitle">Transform your images into professional documents instantly.</p>
+</header>
+
+<!-- Converter Section -->
+<section class="converter-card glass-panel" id="converterSection">
+    <div class="drop-zone" id="dropZone">
+        <div class="icon-container">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-upload-cloud">
+                <polyline points="16 16 12 12 8 16"></polyline>
+                <line x1="12" y1="12" x2="12" y2="21"></line>
+                <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
+                <polyline points="16 16 12 12 8 16"></polyline>
+            </svg>
+        </div>
+        <h3>Drag & Drop Images Here</h3>
+        <p>or <span class="browse-text">browse files</span></p>
+        <input type="file" id="fileInput" accept="image/png, image/jpeg, image/jpg" multiple hidden>
+    </div>
+
+    <div class="preview-area hidden" id="previewContainer">
+        <div class="preview-header">
+            <h4>Preview (<span id="fileCount">0</span>)</h4>
+            <button class="remove-btn" id="removeAllBtn">Clear All</button>
+        </div>
+        <!-- Grid for multiple images -->
+        <div class="preview-grid" id="previewGrid">
+            <!-- Dynamic Image Cards will go here -->
+        </div>
+    </div>
+
+    <div class="actions">
+        <button class="btn btn-primary disabled" id="convertBtn">
+            <span>Convert to PDF</span>
+            <div class="btn-glow"></div>
+        </button>
+    </div>
+</section>
+
+<!-- Download Section (Hidden by default) -->
+<section class="download-screen glass-panel hidden" id="downloadSection">
+    <div class="success-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#10b981"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+    </div>
+    <h2>Conversion Successful!</h2>
+    <p>Your PDF is ready for download.</p>
+
+    <div class="actions">
+        <a id="downloadLink" href="#" class="btn btn-primary">
+            Download PDF
+        </a>
+        <button class="btn btn-secondary" id="startOverBtn"
+            style="margin-top: 1rem; background: transparent; border: 1px solid var(--text-secondary); color: var(--text-secondary); width: 100%; padding: 1rem; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+            Convert More
+        </button>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+{% endblock %}

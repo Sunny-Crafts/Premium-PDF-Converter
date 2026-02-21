@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}Word & PDF Converter | PremiumPDF{% endblock %}
+
+{% block head %}
+<style>
+    .tabs {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .tab-btn {
+        background: transparent;
+        border: 1px solid var(--glass-border);
+        color: var(--text-secondary);
+        padding: 0.8rem 2rem;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .tab-btn.active {
+        background: rgba(59, 130, 246, 0.2);
+        border-color: var(--accent-color);
+        color: #fff;
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+    }
+
+    .tab-btn:hover:not(.active) {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .converter-card {
+        display: none;
+    }
+
+    .converter-card.active {
+        display: block;
+        animation: fadeIn 0.4s ease;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<header>
+    <h1 class="glow-text">Word <span class="accent">&</span> PDF</h1>
+    <p class="subtitle">Convert documents with high fidelity.</p>
+</header>
+
+<div class="tabs">
+    <button class="tab-btn active" data-tab="word2pdf">Word to PDF</button>
+    <button class="tab-btn" data-tab="pdf2word">PDF to Word</button>
+</div>
+
+<!-- WORD TO PDF SECTION -->
+<section class="converter-card glass-panel active" id="word2pdf">
+    <div class="drop-zone" id="dropZoneWord">
+        <div class="icon-container">
+            <i class="fa-solid fa-file-word" style="font-size: 3rem;"></i>
+        </div>
+        <h3>Drag & Drop Word File</h3>
+        <p>or <span class="browse-text">browse files</span></p>
+        <input type="file" id="fileInputWord" accept=".docx, .doc" hidden>
+    </div>
+    <div class="actions">
+        <button class="btn btn-primary disabled" id="convertBtnWord">
+            <span>Convert to PDF</span>
+            <div class="btn-glow"></div>
+        </button>
+    </div>
+</section>
+
+<!-- PDF TO WORD SECTION -->
+<section class="converter-card glass-panel" id="pdf2word">
+    <div class="drop-zone" id="dropZonePdf">
+        <div class="icon-container">
+            <i class="fa-solid fa-file-pdf" style="font-size: 3rem;"></i>
+        </div>
+        <h3>Drag & Drop PDF File</h3>
+        <p>or <span class="browse-text">browse files</span></p>
+        <input type="file" id="fileInputPdf" accept=".pdf" hidden>
+    </div>
+    <div class="actions">
+        <button class="btn btn-primary disabled" id="convertBtnPdf">
+            <span>Convert to Word</span>
+            <div class="btn-glow"></div>
+        </button>
+    </div>
+</section>
+
+<!-- Result / Download Section -->
+<section class="download-screen glass-panel hidden" id="downloadSection">
+    <div class="success-icon">
+        <i class="fa-solid fa-file-circle-check" style="font-size: 4rem; color: var(--success);"></i>
+    </div>
+    <h2 id="successTitle">Conversion Successful!</h2>
+    <p>Your document is ready.</p>
+
+    <div class="actions">
+        <a id="downloadLink" href="#" class="btn btn-primary">
+            Download File
+        </a>
+        <button class="btn btn-secondary" id="startOverBtn"
+            style="margin-top: 1rem; background: transparent; border: 1px solid var(--text-secondary); color: var(--text-secondary); width: 100%; padding: 1rem; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+            Convert Another
+        </button>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='word_pdf.js') }}"></script>
+{% endblock %}

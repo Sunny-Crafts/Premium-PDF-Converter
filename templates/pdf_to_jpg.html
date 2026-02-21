@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}PDF & JPG Tools | PremiumPDF{% endblock %}
+
+{% block head %}
+<style>
+    .tabs {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .tab-btn {
+        background: transparent;
+        border: 1px solid var(--glass-border);
+        color: var(--text-secondary);
+        padding: 0.8rem 2rem;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .tab-btn.active {
+        background: rgba(59, 130, 246, 0.2);
+        border-color: var(--accent-color);
+        color: #fff;
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+    }
+
+    .converter-card {
+        display: none;
+    }
+
+    .converter-card.active {
+        display: block;
+        animation: fadeIn 0.4s ease;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<header>
+    <h1 class="glow-text">PDF <span class="accent">&</span> JPG</h1>
+    <p class="subtitle">Extract images from PDF or convert images to PDF.</p>
+</header>
+
+<div class="tabs">
+    <button class="tab-btn active" data-tab="pdf2jpg">PDF to Images</button>
+    <button class="tab-btn" data-tab="jpg2pdf">Images to PDF</button>
+</div>
+
+<!-- PDF TO JPG SECTION -->
+<section class="converter-card glass-panel active" id="pdf2jpg">
+    <div class="drop-zone" id="dropZonePdf">
+        <div class="icon-container">
+            <i class="fa-solid fa-file-image" style="font-size: 3rem;"></i>
+        </div>
+        <h3>Drag & Drop PDF to Extract Images</h3>
+        <p>or <span class="browse-text">browse files</span></p>
+        <input type="file" id="fileInputPdf" accept=".pdf" hidden>
+    </div>
+    <div class="actions">
+        <button class="btn btn-primary disabled" id="convertBtnPdf">
+            <span>Extract Images</span>
+            <div class="btn-glow"></div>
+        </button>
+    </div>
+</section>
+
+<!-- IMG TO PDF SECTION (Redirect info) -->
+<section class="converter-card glass-panel" id="jpg2pdf" style="text-align:center; padding: 3rem;">
+    <i class="fa-solid fa-arrow-right-arrow-left"
+        style="font-size: 3rem; color: var(--accent-color); margin-bottom: 1rem;"></i>
+    <h3>Images to PDF</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 2rem;">Use our dedicated Image to PDF tool for the best
+        experience.</p>
+    <a href="{{ url_for('image_to_pdf') }}" class="btn btn-primary">Go to Image Converter</a>
+</section>
+
+<!-- Result / Download Section -->
+<section class="download-screen glass-panel hidden" id="downloadSection">
+    <div class="success-icon">
+        <i class="fa-solid fa-images" style="font-size: 4rem; color: var(--success);"></i>
+    </div>
+    <h2>Extraction Successful!</h2>
+    <p>Your images are ready.</p>
+
+    <div class="actions">
+        <a id="downloadLink" href="#" class="btn btn-primary">
+            Download Images (ZIP)
+        </a>
+        <button class="btn btn-secondary" id="startOverBtn"
+            style="margin-top: 1rem; background: transparent; border: 1px solid var(--text-secondary); color: var(--text-secondary); width: 100%; padding: 1rem; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+            Extract More
+        </button>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='pdf_jpg.js') }}"></script>
+{% endblock %}

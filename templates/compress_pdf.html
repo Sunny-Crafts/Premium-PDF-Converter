@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Compress PDF | PremiumPDF{% endblock %}
+
+{% block content %}
+<header>
+    <h1 class="glow-text">Compress <span class="accent">PDF</span></h1>
+    <p class="subtitle">Reduce file size without losing quality.</p>
+</header>
+
+<section class="converter-card glass-panel" id="converterSection">
+    <div class="drop-zone" id="dropZone">
+        <div class="icon-container">
+            <i class="fa-solid fa-file-invoice" style="font-size: 3rem;"></i>
+        </div>
+        <h3>Drag & Drop PDF Here</h3>
+        <p>or <span class="browse-text">browse files</span></p>
+        <input type="file" id="fileInput" accept="application/pdf" hidden>
+    </div>
+
+    <!-- Compression Options -->
+    <div class="options-area hidden" id="optionsArea">
+        <div class="file-info-header">
+            <i class="fa-solid fa-file-pdf"></i>
+            <span id="fileName">selected_file.pdf</span>
+            <button class="remove-btn" id="removeFileBtn">&times;</button>
+        </div>
+
+        <div class="compression-settings">
+            <h3>Select Compression Level</h3>
+            <div class="radio-group">
+                <label class="radio-card">
+                    <input type="radio" name="compression" value="low">
+                    <div class="radio-content">
+                        <span class="radio-title">Low</span>
+                        <span class="radio-desc">Best Quality</span>
+                    </div>
+                </label>
+                <label class="radio-card">
+                    <input type="radio" name="compression" value="medium" checked>
+                    <div class="radio-content">
+                        <span class="radio-title">Medium</span>
+                        <span class="radio-desc">Balanced</span>
+                    </div>
+                </label>
+                <label class="radio-card">
+                    <input type="radio" name="compression" value="high">
+                    <div class="radio-content">
+                        <span class="radio-title">High</span>
+                        <span class="radio-desc">Smallest Size</span>
+                    </div>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button class="btn btn-primary disabled" id="convertBtn">
+            <span>Compress PDF</span>
+            <div class="btn-glow"></div>
+        </button>
+    </div>
+</section>
+
+<!-- Download Section -->
+<section class="download-screen glass-panel hidden" id="downloadSection">
+    <div class="success-icon">
+        <i class="fa-solid fa-arrow-down-wide-short" style="font-size: 4rem; color: var(--success);"></i>
+    </div>
+    <h2>Files Reduced!</h2>
+    <p>Your compressed PDF is ready.</p>
+
+    <div class="actions">
+        <a id="downloadLink" href="#" class="btn btn-primary">
+            Download Compressed PDF
+        </a>
+        <button class="btn btn-secondary" id="startOverBtn"
+            style="margin-top: 1rem; background: transparent; border: 1px solid var(--text-secondary); color: var(--text-secondary); width: 100%; padding: 1rem; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+            Compress Another
+        </button>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='compress.js') }}"></script>
+{% endblock %}

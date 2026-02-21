@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Merge PDF | PremiumPDF{% endblock %}
+
+{% block content %}
+<header>
+    <h1 class="glow-text">Merge <span class="accent">PDF</span></h1>
+    <p class="subtitle">Combine multiple PDF files into one organized document.</p>
+</header>
+
+<section class="converter-card glass-panel" id="converterSection">
+    <div class="drop-zone" id="dropZone">
+        <div class="icon-container">
+            <i class="fa-solid fa-file-circle-plus" style="font-size: 3rem;"></i>
+        </div>
+        <h3>Drag & Drop PDFs Here</h3>
+        <p>or <span class="browse-text">browse files</span></p>
+        <input type="file" id="fileInput" accept="application/pdf" multiple hidden>
+    </div>
+
+    <div class="preview-area hidden" id="previewContainer">
+        <div class="preview-header">
+            <h4>Files to Merge (<span id="fileCount">0</span>)</h4>
+            <button class="remove-btn" id="removeAllBtn">Clear All</button>
+        </div>
+        <div class="preview-grid" id="previewGrid">
+            <!-- PDF Cards -->
+        </div>
+    </div>
+
+    <div class="actions">
+        <button class="btn btn-primary disabled" id="convertBtn">
+            <span>Merge PDFs</span>
+            <div class="btn-glow"></div>
+        </button>
+    </div>
+</section>
+
+<!-- Download Section -->
+<section class="download-screen glass-panel hidden" id="downloadSection">
+    <div class="success-icon">
+        <i class="fa-solid fa-check-circle" style="font-size: 4rem; color: var(--success);"></i>
+    </div>
+    <h2>Merge Successful!</h2>
+    <p>Your combined PDF is ready.</p>
+
+    <div class="actions">
+        <a id="downloadLink" href="#" class="btn btn-primary">
+            Download Merged PDF
+        </a>
+        <button class="btn btn-secondary" id="startOverBtn"
+            style="margin-top: 1rem; background: transparent; border: 1px solid var(--text-secondary); color: var(--text-secondary); width: 100%; padding: 1rem; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+            Merge More
+        </button>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='merge.js') }}"></script>
+{% endblock %}
