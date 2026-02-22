@@ -14,17 +14,17 @@
     <div class="tools-grid"
         style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
         <div class="glass-panel" style="padding: 1.5rem; text-align: center;">
-            <h3 style="color: var(--text-secondary); font-size: 0.9rem; text-transform: uppercase;">Total Conversions
+            <h3 style="color: #ffffff; font-size: 0.9rem; text-transform: uppercase;">Total Conversions
             </h3>
             <p class="glow-text" style="font-size: 2.5rem; margin: 0.5rem 0;">{{ stats.total_conversions }}</p>
         </div>
         <div class="glass-panel" style="padding: 1.5rem; text-align: center;">
-            <h3 style="color: var(--text-secondary); font-size: 0.9rem; text-transform: uppercase;">Storage Used</h3>
+            <h3 style="color: #ffffff; font-size: 0.9rem; text-transform: uppercase;">Storage Used</h3>
             <p class="glow-text" style="font-size: 2.5rem; margin: 0.5rem 0;" class="accent-text">{{ stats.storage_used
                 }}</p>
         </div>
         <div class="glass-panel" style="padding: 1.5rem; text-align: center;">
-            <h3 style="color: var(--text-secondary); font-size: 0.9rem; text-transform: uppercase;">Files Managed</h3>
+            <h3 style="color: #ffffff; font-size: 0.9rem; text-transform: uppercase;">Files Managed</h3>
             <p class="glow-text" style="font-size: 2.5rem; margin: 0.5rem 0;">{{ stats.file_count }}</p>
         </div>
     </div>
@@ -37,7 +37,7 @@
         <div style="overflow-x: auto;">
             <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
                 <thead>
-                    <tr style="text-align: left; color: var(--text-secondary); font-size: 0.9rem;">
+                    <tr style="text-align: left; color: #ffffff; font-size: 0.9rem;">
                         <th style="padding: 1rem;">Timestamp</th>
                         <th style="padding: 1rem;">Action</th>
                         <th style="padding: 1rem;">Original File</th>
@@ -47,7 +47,7 @@
                 <tbody>
                     {% for item in history %}
                     <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                        <td style="padding: 1rem; font-family: monospace; color: var(--text-secondary);">{{
+                        <td style="padding: 1rem; font-family: monospace; color: #ffffff;">{{
                             item.timestamp }}</td>
                         <td style="padding: 1rem;"><span class="badge"
                                 style="background: rgba(139, 92, 246, 0.2); color: var(--accent-glow); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">{{
